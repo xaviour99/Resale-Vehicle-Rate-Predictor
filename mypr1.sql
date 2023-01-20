@@ -1,0 +1,26 @@
+create table carsal.uin(uid integer not null auto_increment,uname varchar(20),phn integer,email varchar(40),ad varchar(20), pas varchar(20), constraint pk1 primary key(uid));
+create table carsal.crty(cid integer not null, ctyname varchar(20),carpr varchar(20), constraint pk2 primary key(cid));
+insert into carsal.uin values(1,"me",1234567890,"ash@mail.com","blr","00");
+insert into carsal.crty values(1,"SUV","1500000");
+insert into carsal.crty values(2,"Seaden","2000000");
+insert into carsal.crty values(3,"HatchBag","900000");
+select * from carsal.uin ;
+select * from carsal.crty;
+insert into carsal.uin values(?,"b",1234567867,"ah@mail.com","chn","10");
+desc carsal.uin ;
+create table carsal.ucar(usid Integer not null auto_increment,noofow integer, yeofpur varchar(10),klodriv varchar(20),crt varchar(15),uid integer,constraint pk3 primary key(usid),constraint fk1 foreign key (uid) references uin(uid));
+alter table carsal.ucar
+add COLUMN prcr varchar(20) after crt;
+insert into carsal.ucar values(1,1,"2016","60000","Seaden","700000",1);
+desc carsal.crty;
+desc carsal.ucar;
+select * from carsal.ucar;
+ALTER TABLE carsal.ucar add constraint fk2 foreign key(cid) references crty(cid);
+Select noofow,yeofpur,klodriv,carpr from carsal.ucar u,carsal.crty c where u.cid=c.cid;
+alter table carsal.uin modify column phn varchar(30);
+desc carsal.ucar;
+select * from carsal.ucar;
+alter table  carsal.ucar add column status varchar(10);
+delete from carsal.ucar where usid!=1;
+Select noofow,yeofpur,klodriv,carpr,c.cid from carsal.ucar u,carsal.crty c where u.uid=2 and status='NC' and u.cid=c.cid;
+Select usid from carsal.ucar where uid=2 and status='NC' and usid in (select max(usid) from carsal.ucar where uid=2);
